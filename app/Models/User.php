@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enum\Role\RoleEnum;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,5 +58,10 @@ class User extends Authenticatable
     public function hasRole(string $slug): bool
     {
         return $this->roles()->where('slug', $slug)->exists();
+    }
+
+    public function getAdminAttribute (): bool
+    {
+        return $this->roles()-contains('title', RoleEnum::ADMIN->value);
     }
 }
