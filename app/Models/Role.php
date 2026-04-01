@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
-    public function user():BelongsTo
+    public function users(): BelongsToMany
     {
-        $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'user_roles')->withTimestamps();
     }
 }
